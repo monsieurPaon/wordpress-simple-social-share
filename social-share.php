@@ -45,11 +45,14 @@ function social_share_settings()
     add_settings_field("social-share-twitter", "Do you want to display Twitter share button?", "social_share_twitter_checkbox", "social-share", "social_share_config_section");
     add_settings_field("social-share-linkedin", "Do you want to display LinkedIn share button?", "social_share_linkedin_checkbox", "social-share", "social_share_config_section");
     add_settings_field("social-share-reddit", "Do you want to display Reddit share button?", "social_share_reddit_checkbox", "social-share", "social_share_config_section");
+    add_settings_field("social-share-label", "Custom the label", "social_share_label_input", "social-share", "social_share_config_section");
 
     register_setting("social_share_config_section", "social-share-facebook");
     register_setting("social_share_config_section", "social-share-twitter");
     register_setting("social_share_config_section", "social-share-linkedin");
-//    register_setting("social_share_config_section", "social-share-reddit");
+    register_setting("social_share_config_section", "social-share-reddit");
+    register_setting("social_share_config_section", "social-share-label");
+
 }
 
 function social_share_facebook_checkbox()
@@ -80,11 +83,20 @@ function social_share_reddit_checkbox()
     <?php
 }
 
+function social_share_label_input()
+{
+    ?>
+    <input type="text" name="social-share-label" />
+    <?php
+}
+
 add_action("admin_init", "social_share_settings");
 
 function add_social_share_icons($content)
 {
-    $html = "<div class='social-share-wrapper'><div class='dg-share'>PARTAGEZ </div>";
+    $label = get_option("social-share-label");
+
+    $html = "<div class='social-share-wrapper'><div class='wp-simple-social-share'>$label </div>";
 
     global $post;
 
@@ -97,22 +109,22 @@ function add_social_share_icons($content)
 
     if(get_option("social-share-facebook") == 1)
     {
-        $html = $html . "<div class='dg-share'><a target='_blank' href='http://www.facebook.com/sharer.php?u=" . $url . "'><img src=' $icoPathFbk ' alt=''></a></div>";
+        $html = $html . "<div class='wp-simple-social-share'><a target='_blank' href='http://www.facebook.com/sharer.php?u=" . $url . "'><img src=' $icoPathFbk ' alt=''></a></div>";
     }
 
     if(get_option("social-share-twitter") == 1)
     {
-        $html = $html . "<div class='dg-share'><a target='_blank' href='https://twitter.com/share?url=" . $url . "'><img src=' $icoPathTwit ' alt=''></a></div>";
+        $html = $html . "<div class='wp-simple-social-share'><a target='_blank' href='https://twitter.com/share?url=" . $url . "'><img src=' $icoPathTwit ' alt=''></a></div>";
     }
 
     if(get_option("social-share-linkedin") == 1)
     {
-        $html = $html . "<div class='dg-share'><a target='_blank' href='http://www.linkedin.com/shareArticle?url=" . $url . "'><img src=' $icoPathLink ' alt=''></a></div>";
+        $html = $html . "<div class='wp-simple-social-share'><a target='_blank' href='http://www.linkedin.com/shareArticle?url=" . $url . "'><img src=' $icoPathLink ' alt=''></a></div>";
     }
 
     if(get_option("social-share-reddit") == 1)
     {
-        $html = $html . "<div class='dg-share'><a target='_blank' href='http://reddit.com/submit?url=" . $url . "'>Reddit</a></div>";
+        $html = $html . "<div class='wp-simple-social-share'><a target='_blank' href='http://reddit.com/submit?url=" . $url . "'>Reddit</a></div>";
     }
 
     $html = $html . "<div class='clear'></div></div>";

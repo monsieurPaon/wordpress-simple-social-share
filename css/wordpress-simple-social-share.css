@@ -1,5 +1,10 @@
-.dg-share {
+.wp-simple-social-share {
     display: inline-block;
+}
+
+.label {
+    text-transform: uppercase;
+    margin-right: 15px;
 }
 
 img {
