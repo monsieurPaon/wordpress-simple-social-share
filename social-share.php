@@ -8,7 +8,7 @@ Version: 1.0
 Author: Corentin Darras
 */
 
-wp_enqueue_style('dg-social-share', plugin_dir_url(__FILE__) . 'css/dg-social-share.css');
+wp_enqueue_style('wordpress-simple-social-share', plugin_dir_url(__FILE__) . 'css/wordpress-simple-social-share.css');
 
 
 function social_share_menu_item()
@@ -44,7 +44,7 @@ function social_share_settings()
     add_settings_field("social-share-facebook", "Do you want to display Facebook share button?", "social_share_facebook_checkbox", "social-share", "social_share_config_section");
     add_settings_field("social-share-twitter", "Do you want to display Twitter share button?", "social_share_twitter_checkbox", "social-share", "social_share_config_section");
     add_settings_field("social-share-linkedin", "Do you want to display LinkedIn share button?", "social_share_linkedin_checkbox", "social-share", "social_share_config_section");
-//    add_settings_field("social-share-reddit", "Do you want to display Reddit share button?", "social_share_reddit_checkbox", "social-share", "social_share_config_section");
+    add_settings_field("social-share-reddit", "Do you want to display Reddit share button?", "social_share_reddit_checkbox", "social-share", "social_share_config_section");
 
     register_setting("social_share_config_section", "social-share-facebook");
     register_setting("social_share_config_section", "social-share-twitter");
@@ -72,13 +72,13 @@ function social_share_linkedin_checkbox()
     <input type="checkbox" name="social-share-linkedin" value="1" <?php checked(1, get_option('social-share-linkedin'), true); ?> /> Check for Yes
     <?php
 }
-//
-//function social_share_reddit_checkbox()
-//{
-//    ?>
-<!--    <input type="checkbox" name="social-share-reddit" value="1" --><?php //checked(1, get_option('social-share-reddit'), true); ?><!-- /> Check for Yes-->
-<!--    --><?php
-//}
+
+function social_share_reddit_checkbox()
+{
+    ?>
+    <input type="checkbox" name="social-share-reddit" value="1" <?php checked(1, get_option('social-share-reddit'), true); ?> /> Check for Yes
+    <?php
+}
 
 add_action("admin_init", "social_share_settings");
 
@@ -120,4 +120,4 @@ function add_social_share_icons($content)
     return $html;
 }
 
-add_shortcode('dg-social-share', 'add_social_share_icons');
+add_shortcode('wp-simple-social-share', 'add_social_share_icons');
